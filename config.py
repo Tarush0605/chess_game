@@ -15,9 +15,9 @@ font = pygame.font.Font('freesansbold.ttf', 80);
 
 
 # Colors
-red = (255, 0, 0);
 light = (232, 235, 239);
 dark = (125, 135, 150);
+red = (255, 0, 0);
 black = (0, 0, 0);
 white = (255, 255, 255);
 green = (144, 238, 144);
