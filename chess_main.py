@@ -9,13 +9,14 @@ from config import *
 screen = pygame.display.set_mode(screen_size);
 pygame.display.set_caption('Chess Game');
 
+
 # Initialise Chessboard
 p2 = 'w';
 if p1 == 'w': p2 = 'b';
-bb = Board(p1,p2);
 
 
 def main():
+    bb = Board(p1,p2);
     bb.draw(screen);
     txt = "";
 
@@ -41,14 +42,15 @@ def main():
             elif st == 3:
                 txt = "DRAW";
 
-            txt = font.render(txt, True, black);
+            txt = font.render(txt, True, gameover_color);
             rect = txt.get_rect();
-            rect.center = (screen_width/2, screen_width/2);
+            rect.center = (screen_width//2, screen_height//2);
             screen.blit(txt, rect);
             pygame.display.update();
-            pygame.time.delay(5000);
-            pygame.quit();
-            exit();
+            pygame.time.delay(new_game_time_delay);
+            main();
+            # pygame.quit();
+            # exit();
                 
         if players==1 and bb.chance == p2:
             call_the_expert(bb, screen);

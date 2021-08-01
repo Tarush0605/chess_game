@@ -16,8 +16,8 @@ def draw_block(screen, row, col, color):
 
 
 def draw_moves(screen, row, col, color, radius):
-    x = col*block + block/2;
-    y = row*block + block/2;
+    x = col*block + block//2;
+    y = row*block + block//2;
     pygame.draw.circle(screen, color, (x,y), radius);
 
 
@@ -38,12 +38,13 @@ def moveit_moveit(bb, screen, last_move, piece):
     timer = 0;
     (r1,c1) = last_move[0];
     (r2,c2) = last_move[1];
+    piece.in_transition = True;
     
     while timer < animate_duration:
         timer += animation_speed;
         bb.draw(screen);
-        y = (r1*block + block/2) + (r2-r1)*block*timer/animate_duration;
-        x = (c1*block + block/2) + (c2-c1)*block*timer/animate_duration;
+        y = (r1*block + block//2) + (r2-r1)*block*timer/animate_duration;
+        x = (c1*block + block//2) + (c2-c1)*block*timer/animate_duration;
         piece.draw_piece_in_motion(screen, x, y);
 
         pygame.display.update();
@@ -122,11 +123,11 @@ class Board:
                 # King in check
                 if self.board[i][j].is_king:
                     if self.board[i][j].in_check:
-                        color = red;
+                        color = in_check_color;
 
                 # Focus square
                 if (i,j) == self.focus_square:
-                    color = green;
+                    color = focus_square_color;
 
                 draw_block(screen, i, j, color);
                 
@@ -148,12 +149,12 @@ class Board:
             
             if moves is not None:
                 for row,col in moves:
-                    draw_moves(screen, row, col, green, valid_move_radius);
+                    draw_moves(screen, row, col, focus_square_color, legal_move_radius);
 
         # Show Last Move
         if self.last_move is not None:
             for r,c in self.last_move:
-                draw_square(screen, r, c, purple);
+                draw_square(screen, r, c, last_move_color);
 
         pygame.display.update();
 
@@ -254,7 +255,7 @@ class Board:
             for j in range(8):
                 if self.board[i][j]!=0:
                     c += 1;
-        print(c);
+        # print(c);
         if c==2:
             return 3;
         

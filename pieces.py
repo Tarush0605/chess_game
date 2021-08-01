@@ -19,7 +19,6 @@ class Piece:
         self.in_transition = False;
 
 
-
     def draw(self, screen):
         if(self.color == 'w'):
             img = W[self.index];
@@ -28,7 +27,7 @@ class Piece:
 
         row, col = self.row, self.col;
         rect = img.get_rect();
-        rect.center = (col*block + block/2, row*block + block/2);
+        rect.center = (col*block + block//2, row*block + block//2);
         screen.blit(img, rect);
 
 

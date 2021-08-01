@@ -3,10 +3,10 @@ import time
 from config import *
 
 # order - king, queen, rook, knight, bishop, pawn
-score = [100000, 900, 500, 300, 300, 100];
+score = [0, 900, 500, 300, 300, 100];
 
 def call_the_expert(bb, screen):
-    time.sleep(computer_delay_time);
+    time.sleep(computer_think_time);
     board = bb.board;
     color = bb.chance;
     all_moves = bb.k1.gimme_moves(board, color);
@@ -28,9 +28,12 @@ def call_the_expert(bb, screen):
         else:
             if sc==0:
                 m.append(move);
-    
+
     # print(m);
-    move = random.choice(m);
+    if len(m)==0:
+        move = random.choice(all_moves);
+    else:
+        move = random.choice(m);
     # print(move);
 
     bb.make_a_move(move, screen);
